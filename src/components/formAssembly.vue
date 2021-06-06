@@ -73,7 +73,7 @@
             <DatePicker
               v-if="item.type === 'dateTime'"
               v-model="formSearch[item.key]"
-              :type="item.text_type"
+              :type="item.text_type || date"
               clearable
               :disabled="item.disabled"
               v-bind="setAttrs(item)"
@@ -109,6 +109,12 @@
               @on-check-change="handleTreeSelectCheckChange"
               @on-select-change="handleTreeSelectClick"
             ></tree-select>
+            <!--上传图片-->
+            <UploadImg
+              v-if="item.type === 'uploadImg'"
+              ref="uploadRef"
+              :uploadParam="item"
+              @uploadImgFn="uploadImgFn"></UploadImg>
           </FormItem>
         </Col>
       </Row>
@@ -125,6 +131,7 @@
 <script>
 import { Button, Form, FormItem, Row, Col, Input, Select, Option, DatePicker, Switch } from 'view-design'
 import TreeSelect from '../components/tree-select/tree-select'
+import UploadImg from '../components/uploadImg'
 
 export default {
   name: 'formAssembly',
@@ -139,7 +146,8 @@ export default {
     Option,
     DatePicker,
     [Switch.name]: Switch,
-    TreeSelect
+    TreeSelect,
+    UploadImg
   },
   props: {
     formData: {
@@ -194,6 +202,15 @@ export default {
     },
     handleTreeSelectClick (e) {
       this.$emit('onTreeSelect', e)
+    },
+    // 上传图片
+    uploadImgFn (e) {
+      const paramList = this.formData.fromParams
+      paramList.forEach((v) => {
+        if (v.type === 'upload') {
+          this.formSearch[v.key] = e.response.data.link // 上传资源服务器接口返回结果
+        }
+      })
     }
   }
 }

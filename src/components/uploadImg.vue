@@ -34,7 +34,7 @@
       :multiple="uploadParam.multiple"
       :action="handleSuccessUrl"
       style="display: inline-block;width:58px;">
-      <div style="width: 58px;height:58px;line-height: 74px;">
+      <div style="width: 58px;height:58px;line-height: 74px;cursor: pointer;">
         <Icon type="ios-camera" size="40"></Icon>
       </div>
     </Upload>
@@ -48,10 +48,16 @@
 </template>
 
 <script>
-import { baseUrl } from '../assets/js/env'
+import { Upload, Modal, Icon } from 'view-design'
+// import { baseUrl } from '../assets/js/env'
 
 export default {
   name: 'index',
+  components: {
+    Upload,
+    Modal,
+    Icon
+  },
   data () {
     return {
       imgUrl: '',
@@ -59,7 +65,8 @@ export default {
       uploadList: [],
       isUpload: true,
       accessToken: '',
-      handleSuccessUrl: baseUrl + '/api/ytcloud-resource/oss/endpoint/put-file?code=minio'
+      // handleSuccessUrl: baseUrl + '/api/ytcloud-resource/oss/endpoint/put-file?code=minio'
+      handleSuccessUrl: '//jsonplaceholder.typicode.com/posts/'
     }
   },
   props: {
@@ -77,7 +84,7 @@ export default {
   created () {
     this.accessToken = {
       // 'YtCloud-Auth': 'bearer ' + getToken(),
-      Authorization: 'Basic c2FiZXI6c2FiZXJfc2VjcmV0'
+      // Authorization: 'Basic c2FiZXI6c2FiZXJfc2VjcmV0'
     }
   },
   methods: {

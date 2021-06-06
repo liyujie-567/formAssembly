@@ -195,8 +195,13 @@ export default {
             ]
           },
           {
-            name: '文本框',
+            name: '图片上传',
             key: 'k',
+            type: 'uploadImg'
+          },
+          {
+            name: '文本框',
+            key: 'l',
             type: 'input',
             text_type: 'textarea'
           }
@@ -213,7 +218,8 @@ export default {
           h: '',
           i: '',
           j: '',
-          k: ''
+          k: '',
+          l: ''
         }
       }
     }
