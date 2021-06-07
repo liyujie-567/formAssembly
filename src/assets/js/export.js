@@ -12,7 +12,7 @@ import XLSX from 'xlsx-style'
  * @param revealList 列表页面展示的表头
  * @returns {[]} excel表格展示的表头
  */
-export const buildHeader = (revealList) => {
+const buildHeader = (revealList) => {
   const excelHeader = []
   // 构建生成excel表头需要的数据结构
   getHeader(revealList, excelHeader, 0, 0)
@@ -31,7 +31,7 @@ export const buildHeader = (revealList) => {
  * @param perOffset 前置偏移量
  * @returns {number}  后置偏移量
  */
-export const getHeader = (headers, excelHeader, deep, perOffset) => {
+const getHeader = (headers, excelHeader, deep, perOffset) => {
   let offset = 0
   let cur = excelHeader[deep]
   if (!cur) {
@@ -59,7 +59,7 @@ export const getHeader = (headers, excelHeader, deep, perOffset) => {
  * @param selectionData
  * @param revealList
  */
-export const extractData = (selectionData, revealList) => {
+const extractData = (selectionData, revealList) => {
   // 列
   const headerList = flat(revealList)
   // 导出的结果集
@@ -84,7 +84,7 @@ export const extractData = (selectionData, revealList) => {
 /**
  * 合并
  * */
-export const buildExcelRow = (mainKeys, headers, rawDataList) => {
+const buildExcelRow = (mainKeys, headers, rawDataList) => {
   // 合计行
   const sumCols = []
   // 数据行
@@ -121,7 +121,7 @@ export const buildExcelRow = (mainKeys, headers, rawDataList) => {
   return rows
 }
 
-export const sumRowHandle = (sumCols) => {
+const sumRowHandle = (sumCols) => {
   // TODO
   return []
 }
@@ -129,7 +129,7 @@ export const sumRowHandle = (sumCols) => {
 /**
  * 合并头部单元格
  **/
-export const doMerges = (arr) => {
+const doMerges = (arr) => {
   // 要么横向合并 要么纵向合并
   const deep = arr.length
   const merges = []
@@ -177,7 +177,7 @@ export const doMerges = (arr) => {
 /**
  *
  */
-export const aoaToSheet = (data, headerRows) => {
+const aoaToSheet = (data, headerRows) => {
   const ws = {}
   const range = { s: { c: 10000000, r: 10000000 }, e: { c: 0, r: 0 } }
   for (let R = 0; R !== data.length; ++R) {
@@ -242,13 +242,13 @@ export const aoaToSheet = (data, headerRows) => {
 /**
  * 填充行合并占位符
  * */
-export const pushRowSpanPlaceHolder = (arr, count) => {
+const pushRowSpanPlaceHolder = (arr, count) => {
   for (let i = 0; i < count; i++) {
     arr.push('!$ROW_SPAN_PLACEHOLDER')
   }
 }
 // 填充列合并占位符
-export const pushColSpanPlaceHolder = (arr, count) => {
+const pushColSpanPlaceHolder = (arr, count) => {
   for (let i = 0; i < count; i++) {
     arr.push('!$COL_SPAN_PLACEHOLDER')
   }
@@ -257,7 +257,7 @@ export const pushColSpanPlaceHolder = (arr, count) => {
 /**
  * 展开数据，为了实现父子关系的数据进行行合并
 * */
-export const flatData = (list, eachDataCallBack) => {
+const flatData = (list, eachDataCallBack) => {
   const resultList = []
   for (let i = 0; i < list.length; i++) {
     const data = list[i]
@@ -283,7 +283,7 @@ export const flatData = (list, eachDataCallBack) => {
 }
 
 // 扁平头部
-export const flat = (revealList) => {
+const flat = (revealList) => {
   const result = []
   revealList.forEach(e => {
     if (Object.prototype.hasOwnProperty.call(e, 'children')) {
@@ -297,7 +297,7 @@ export const flat = (revealList) => {
   return result
 }
 
-export const s2ab = (s) => {
+const s2ab = (s) => {
   const buf = new ArrayBuffer(s.length)
   const view = new Uint8Array(buf)
   for (let i = 0; i !== s.length; ++i) {
@@ -306,7 +306,7 @@ export const s2ab = (s) => {
   return buf
 }
 
-export const openDownloadXLSXDialog = (url, saveName) => {
+const openDownloadXLSXDialog = (url, saveName) => {
   if (typeof url === 'object' && url instanceof Blob) {
     url = URL.createObjectURL(url) // 创建blob地址
   }
@@ -371,11 +371,5 @@ export const exportElsx = (data, columns) => {
 }
 
 export default {
-  buildHeader,
-  extractData,
-  doMerges,
-  aoaToSheet,
-  s2ab,
-  openDownloadXLSXDialog,
   exportElsx
 }
