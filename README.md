@@ -32,3 +32,11 @@
    formSubmit 提交
    formCancel 取消
 ```
+
+# xlsx导出
+```
+  npm install xlsx --save
+  npm install xlsx-style --save
+
+  Table控件复杂表头通过children嵌套，引用：export.js 调用 exportElsx(a, b) 函数，a: table数据源，b: columns数据源
+```

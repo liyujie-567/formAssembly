@@ -1,6 +1,13 @@
 <template>
   <div class="tableList">
+    <!--普通table-->
     <Table border :columns="columns" :data="data"></Table>
+
+    <!--复杂表头table-->
+    <div style="margin-top: 20px;">
+      <Table border :columns="complexColumns" :data="data"></Table>
+      <Button type="primary" @click="exportFn">导出</Button>
+    </div>
 
     <Modal
       v-model="modalStatus"
@@ -19,6 +26,7 @@
 <script>
 import { Table, Button, Tag, Modal, Switch } from 'view-design'
 import formAssembly from '../components/formAssembly'
+import { exportElsx } from '../assets/js/export'
 
 export default {
   name: 'tableList',
@@ -343,7 +351,42 @@ export default {
           k: '',
           l: ''
         }
-      }
+      },
+
+      // 复杂table
+      complexColumns: [
+        {
+          title: '名称',
+          key: 'name',
+          align: 'center'
+        },
+        {
+          title: '属性',
+          align: 'center',
+          children: [
+            {
+              title: '宽度',
+              key: 'width',
+              align: 'center'
+            },
+            {
+              title: '高度',
+              key: 'height',
+              align: 'center'
+            },
+            {
+              title: '性别',
+              key: 'six',
+              align: 'center'
+            }
+          ]
+        },
+        {
+          title: '状态',
+          key: 'status',
+          align: 'center'
+        }
+      ]
     }
   },
   created () {
@@ -356,6 +399,10 @@ export default {
     },
     submitCancel () {
       this.modalStatus = false
+    },
+    // 导出
+    exportFn () {
+      exportElsx(this.data, this.complexColumns)
     }
   }
 }
