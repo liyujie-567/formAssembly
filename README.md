@@ -1,4 +1,9 @@
-# 一个表单组件
+# 组件
+
+运行报错！！！：
+not found ./cptable in node_modules/xlsx-style/dist/cpexcel.js
+修改：
+node_modules/xlsx-style/dist/cpexcel.js    第807行，把var cpt = require(’./cpt’ + ‘able’); 改成var cpt = cptable; 就可以了。
 
 ## Project setup
 ```
@@ -39,4 +44,13 @@
   npm install xlsx-style --save
 
   Table控件复杂表头通过children嵌套，引用：export.js 调用 exportElsx(a, b) 函数，a: table数据源，b: columns数据源
+```
+# 中间件管道
+```
+  store/index
+  user: {
+    loggedIn: false, // 是否登录 false未登录， true登录
+    isSubscribed: false // 是否订阅  false未订阅， true订阅
+  }
+  /middlewarePipeline    /middlewarePipeline.js
 ```

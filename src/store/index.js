@@ -5,7 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    LOADING: false
+    LOADING: false,
+    user: {
+      loggedIn: false, // 是否登录
+      isSubscribed: false // 是否订阅
+    }
   },
   mutations: {
     showLoading (state) {
@@ -16,6 +20,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
+  },
+  getters: {
+    auth (state) {
+      return state.user
+    }
   },
   modules: {
   }
